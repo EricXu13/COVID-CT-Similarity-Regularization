@@ -1,0 +1,96 @@
+# Dataset settings
+DATA:
+    BATCH_SIZE: 128
+    DIR: ~/workspace/datasets/covidx
+    IMG_SIZE: 256
+    INTERPOLATION: bicubic
+    PIN_MEMORY: True
+    NUM_WORKERS: 16
+
+# Model settings
+MODEL:
+    ARCH: resnet18
+    NUM_CLASSES: 3
+    LABEL_SMOOTHING: 0.1
+    RESUME: ''
+    
+# BYOL Constraint Learning settings    
+SSL:
+    PROJECTION_HIDDEN_SIZE: 512
+    PROJECTION_SIZE: 128
+    MOVING_AVERAGE_DECAY: 0.99
+
+# Augmentation settings
+AUG:
+    TYPE: auto
+    COLOR_JITTER: 0.4
+    # AutoAugment Policy
+    # Ex 'rand-m9-n3-mstd0.5' results in RandAugment with magnitude 9, num_layers 3, magnitude_std 0.5
+    # 'rand-mstd1-w0' results in magnitude_std 1.0, weights 0, default magnitude of 10 and num_layers 2
+    AUTO_AUGMENT: rand-m9-mstd0.5-inc1
+    # Random erase prob, mode, count
+    REPROB: 0.25
+    REMODE: pixel
+    RECOUNT: 1
+    # Mixup alpha
+    MIXUP: 0.8
+    # Cutmix alpha
+    CUTMIX: 1.0
+    CUTMIX_MINMAX: null
+    MIXUP_PROB: 1.0
+    # Probability of switching to cutmix when both mixup and cutmix enabled
+    MIXUP_SWITCH_PROB: 0.5
+    MIXUP_MODE: batch
+    
+# Training settings
+TRAIN:
+    START_EPOCH: 0
+    EPOCHS: 50
+    WARMUP_EPOCHS: 5
+    WEIGHT_DECAY: 0.000001
+    BASE_LR: 0.0005
+    WARMUP_LR: 0.0000005
+    MIN_LR: 0.0000005
+    CLIP_GRAD: 5.0
+    
+    AUTO_RESUME: True
+    ACCUMULATION_STEPS: 0
+    
+    TWOCROP: True
+    
+    # Scheduler settings
+    LR_SCHEDULER:
+        NAME: cosine
+        # Epoch interval to decay LR, used in StepLRScheduler
+        DECAY_EPOCHS: 50
+        DECAY_RATE: 0.1
+        
+    #Scaling factor settings
+    SCALING_SCHEDULER:
+        METHOD: constant
+        MAX_RATE: 0.5
+        
+        # For Linear and Cosine Decay
+        MIN_RATE: 0.001
+        
+    # Optimizer settings
+    OPTIMIZER:
+        NAME: adamw
+        EPS: 0.00000001
+        BETAS: [0.9, 0.999]
+        MOMENTUM: 0.9
+        NESTEROV: True
+        
+# Testing settings
+TEST:
+    CROP: True
+    
+# Other settings
+AMP_OPT_LEVEL: 'O1'
+OUTPUT: './output'
+TAG: 'default'
+SAVE_FREQ: 1
+PRINT_FREQ: 10
+SEED: 0
+EVAL_MODE: False
+LOCAL_RANK: 0

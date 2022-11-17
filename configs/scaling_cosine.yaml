@@ -1,0 +1,5 @@
+TRAIN:
+    SCALING_SCHEDULER:
+        METHOD: cosine
+        MAX_RATE: 1.0
+        MIN_RATE: 0.01
